@@ -1,5 +1,7 @@
 import unittest
 import re
+import os
+
 
 ## SI 206 - W17 - HW3
 ## COMMENT WITH:
@@ -23,12 +25,17 @@ import re
 
 ## Write code to define your parse_counted_words function here.
 def parse_counted_words(s):
-    number = re.findall('(\d+)(?!.*\d)',s)
-    number1= re.findall('(\d+)(?!.*\d)\s.[A-z]+',s)
-    # number1 = number[-1]
-    # name = re.
-    print (number1)
+    reg = re.findall('\d+(?!.*\d)\s.[A-z]+',s)
+    if len(reg) == 1:
+        return (tuple(reg[0].split()))
 
+
+
+    
+     
+
+    
+  
 
 
 
@@ -38,22 +45,43 @@ def parse_counted_words(s):
 file = open('computer_paths.txt')
 
 ## (a) Write Python code to determine how many of these paths identify FILES, not directories. Save that number in the variable file_paths_num.
+file_paths_num = 0
+for line in file:
+    line = line.rstrip()
+    if re.findall('\.',line):
+        #print (line)
+        file_paths_num += 1
+
 
 ## (b) Write Python code to determine how many of these paths are FULL paths, not relative paths. Save that number in the variable full_paths_num.
+file = open('computer_paths.txt')
+full_paths_num = 0
+for line in file:
+    line = line.rstrip()
+    #print (line)
+    if re.findall('(\/Users\/+|\~)',line):
+        #print (line)
+        full_paths_num += 1
 
 ## (c) Write Python code to determine how many of these paths describe a Python file saved inside a folder called SI206. Save that number in the variable python_course_paths.
-
+file = open('computer_paths.txt')
+python_course_paths = 0
+for line in file:
+    line = line.rstrip()
+    if re.findall('(SI206)\S+(py)',line):
+        print (line)
+        python_course_paths += 1
 ## (d) Write Python code to determine how many of these paths describe a Microsoft file (a file that EITHER ends with .docx OR .xlsx, 
 ## but nothing else counts) where the file name ends in a digit. Save that total in the variable microsoft_files_num.
-    # m = re.match(r"(\w+) (\w+)", "Isaac Newton, physicist")
-    # m.group(0)       # The entire match
-    # #'Isaac Newton'
-    # m.group(1)       # The first parenthesized subgroup.
-    # # 'Isaac'
-    # m.group(2)       # The second parenthesized subgroup.
-    # #'Newton'
-    # m.group(1, 2)    # Multiple arguments give us a tuple.
-    # # ('Isaac', 'Newton')
+file = open('computer_paths.txt')
+microsoft_files_num = 0
+for line in file:
+    line = line.rstrip()
+    if re.findall('\d+(?!.*\d)\S+(.xlsx|.docx)',line):
+        print (line)
+        microsoft_files_num += 1
+
+
 
 # on the 6-character string 'aaaaaa', a{3,5} will match 5 'a' characters, while a{3,5}? will only match 3 characters (the third, fourth, and fifth-index chars)
 
